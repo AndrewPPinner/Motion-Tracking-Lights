@@ -1,0 +1,44 @@
+<video id="preview" autoplay></video>
+
+Response
+<video id="remote" autoplay></video>
+
+<script>
+    const video = document.getElementById('preview');
+    const videores = document.getElementById('remote');
+    const ws = new WebSocket("ws://localhost:5171/ws/stream");
+    ws.onmessage = recieveVideo
+    ws.binaryType = 'arraybuffer'
+    
+    
+    
+    // Request webcam access
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+        video.srcObject = stream;
+        video.onloadedmetadata = function(ev) {
+            //show in the video element what is being captured by the webcam
+            video.play();
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            
+            let mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start(1000)
+            
+            mediaRecorder.ondataavailable = function(ev) {
+                //Do I need to send data here or just handle it in the set interval?
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                canvas.toBlob(blob => {ws.send(blob)}, 'image/jpeg')
+            }
+        };
+        
+        
+    })
+
+    function recieveVideo(x) {
+        const updateBlob = new Blob([x.data], {type: 'image/jpg'})
+        videores.src = URL.createObjectURL(updateBlob)
+    }
+
+</script>

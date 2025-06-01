@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "52eieF84mhi2rMUp1gC/TdWj37X4EbLwGQtT+pjd9k8=",
+  "Source": "VideoProcessingServer",
+  "BasePath": "_content/VideoProcessingServer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

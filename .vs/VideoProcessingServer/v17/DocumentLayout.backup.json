@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\coding_projects\\VideoProcessingServer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{20A627E3-056F-4F64-8E6F-EF42D319DC2E}|VideoProcessingServer.csproj|c:\\coding_projects\\videoprocessingserver\\handlers\\websockethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20A627E3-056F-4F64-8E6F-EF42D319DC2E}|VideoProcessingServer.csproj|solutionrelative:handlers\\websockethandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20A627E3-056F-4F64-8E6F-EF42D319DC2E}|VideoProcessingServer.csproj|c:\\coding_projects\\videoprocessingserver\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{20A627E3-056F-4F64-8E6F-EF42D319DC2E}|VideoProcessingServer.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20A627E3-056F-4F64-8E6F-EF42D319DC2E}|VideoProcessingServer.csproj|c:\\coding_projects\\videoprocessingserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20A627E3-056F-4F64-8E6F-EF42D319DC2E}|VideoProcessingServer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\coding_projects\\VideoProcessingServer\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\coding_projects\\VideoProcessingServer\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABoAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-14T00:58:58.088Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WebSocketHandler.cs",
+              "DocumentMoniker": "C:\\coding_projects\\VideoProcessingServer\\Handlers\\WebSocketHandler.cs",
+              "RelativeDocumentMoniker": "Handlers\\WebSocketHandler.cs",
+              "ToolTip": "C:\\coding_projects\\VideoProcessingServer\\Handlers\\WebSocketHandler.cs",
+              "RelativeToolTip": "Handlers\\WebSocketHandler.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAUwFMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T00:50:05.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\coding_projects\\VideoProcessingServer\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\coding_projects\\VideoProcessingServer\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T00:46:03.519Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
