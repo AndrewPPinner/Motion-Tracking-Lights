@@ -1,0 +1,88 @@
+## Build and Visual Studio artifacts
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code settings
+.vscode/
+.history/
+
+## Rider settings
+.idea/
+*.sln.iml
+
+## ASP.NET Core generated files
+wwwroot/lib/
+node_modules/
+dist/
+bundle/
+
+## NuGet packages
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+## Build results
+*.dll
+*.exe
+*.log
+*.cache
+*.pdb
+
+## Logs
+*.log
+logs/
+
+## Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.testresults
+
+## Publish results
+publish/
+out/
+artifacts/
+
+## Temporary files
+*.tmp
+*.temp
+*.bak
+*.old
+
+## Secrets and user config
+secrets.json
+appsettings.*.json
+*.env
+.env.*
+
+## JetBrains Rider
+.idea/
+*.DotSettings.user
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## Entity Framework
+Migrations/
+
+## Local tools
+.local/
+
+## Docker
+**/docker-compose.override.yml
+**/docker-compose*.yml
+**/*.db
+**/*.sqlite
+
+## OS-generated files
+.DS_Store
+Thumbs.db
