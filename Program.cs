@@ -1,3 +1,4 @@
+using OpenCvSharp;
 using VideoProcessingServer.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,12 +27,18 @@ var webSocketOptions = new WebSocketOptions
 app.UseWebSockets(webSocketOptions);
 app.UseRouting();
 
+using var refImg = Cv2.ImRead("C:\\Users\\andpp\\Downloads\\reference.jpg", ImreadModes.Color);
+
+var sub = BackgroundSubtractorKNN.Create();
+for (int i = 0; i < 30; i++)
+    sub.Apply(refImg, new Mat(), 0.1);
+
 app.Map("/ws/stream", async context =>
 {
     if (context.WebSockets.IsWebSocketRequest)
     {
         var webSocket = await context.WebSockets.AcceptWebSocketAsync();
-        await WebSocketHandler.HandleStream(webSocket);
+        await WebSocketHandler.HandleStream(webSocket, sub);
     }
     else
     {

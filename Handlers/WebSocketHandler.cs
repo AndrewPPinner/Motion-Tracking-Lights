@@ -1,4 +1,5 @@
 ﻿using System.Net.WebSockets;
+using System.Security.Cryptography.Xml;
 using OpenCvSharp;
 
 namespace VideoProcessingServer.Handlers
@@ -7,11 +8,14 @@ namespace VideoProcessingServer.Handlers
     public static class WebSocketHandler
     {
         private static List<WebSocket> _subscribers = new();
-        private static BackgroundSubtractorMOG2 _bgSubtractor = BackgroundSubtractorMOG2.Create();
-        private static object _lock = new();
+        private static BackgroundSubtractorKNN _subtractor;
 
-        public static async Task HandleStream(WebSocket webSocket)
+        public static async Task HandleStream(WebSocket webSocket, BackgroundSubtractorKNN subtractor)
         {
+            if (_subtractor == null)
+            {
+                _subtractor = subtractor;
+            }
             _subscribers.Add(webSocket);
             var buffer = new byte[8192];
 
@@ -57,30 +61,51 @@ namespace VideoProcessingServer.Handlers
         //Update to return some kind of coordinates
         private static byte[]? ProcessFrame(byte[] imageBytes)
         {
+            _subtractor.DetectShadows = true;
+
             try
             {
-                using var mat = Cv2.ImDecode(imageBytes, ImreadModes.AnyColor);
-                if (mat.Empty()) return null;
+                using var currFrame = Cv2.ImDecode(imageBytes, ImreadModes.Color);
+                if (currFrame.Empty()) return null;
 
-                using var fgMask = new Mat();
-                lock (_lock) // Background subtractor isn't thread-safe
-                {
-                    _bgSubtractor.Apply(mat, fgMask);
-                }
+                Cv2.GaussianBlur(currFrame, currFrame, new Size(5, 5), 0);
 
-                // Find motion contours
-                Cv2.FindContours(fgMask, out Point[][] contours, out _, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+                Mat fgMask = new Mat();
+                _subtractor.Apply(currFrame, fgMask, 0);
+
+                // Clean the mask
+                Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(5, 5));
+                Cv2.MorphologyEx(fgMask, fgMask, MorphTypes.Close, kernel);
+                Cv2.MorphologyEx(fgMask, fgMask, MorphTypes.Open, kernel);
+                Cv2.Threshold(fgMask, fgMask, 200, 255, ThresholdTypes.Binary);
+
+                // Find only the largest contour
+                Point[][] contours;
+                HierarchyIndex[] hierarchy;
+                Cv2.FindContours(fgMask, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+                using var res = Cv2.ImDecode(imageBytes, ImreadModes.Color);
+
+                double maxArea = 0;
+                Point[]? largestContour = null;
 
                 foreach (var contour in contours)
                 {
                     double area = Cv2.ContourArea(contour);
-                    if (area < 500) continue; // Filter noise
-
-                    var rect = Cv2.BoundingRect(contour);
-                    Cv2.Rectangle(mat, rect, Scalar.Red, 2);
+                    if (area > maxArea)
+                    {
+                        maxArea = area;
+                        largestContour = contour;
+                    }
                 }
-                fgMask.SaveImage("C:\\Users\\andpp\\Downloads\\test.jpeg");
-                return mat.ToBytes(".jpg"); // Re-encode processed frame as JPEG
+
+                if (largestContour != null && maxArea > 500)
+                {
+                    Rect bbox = Cv2.BoundingRect(largestContour);
+                    Cv2.Rectangle(res, bbox, Scalar.Red, 2);
+                }
+
+                return res.ToBytes(".jpg");
             }
             catch (Exception ex)
             {

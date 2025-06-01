@@ -9,6 +9,7 @@
 ## Visual Studio Code settings
 .vscode/
 .history/
+.vs/
 
 ## Rider settings
 .idea/

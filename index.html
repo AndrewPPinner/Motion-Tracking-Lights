@@ -1,7 +1,7 @@
 <video id="preview" autoplay></video>
 
 Response
-<video id="remote" autoplay></video>
+<img id="remote"/>
 
 <script>
     const video = document.getElementById('preview');
@@ -24,7 +24,7 @@ Response
             const context = canvas.getContext('2d');
             
             let mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.start(1000)
+            mediaRecorder.start(10)
             
             mediaRecorder.ondataavailable = function(ev) {
                 //Do I need to send data here or just handle it in the set interval?
@@ -37,8 +37,15 @@ Response
     })
 
     function recieveVideo(x) {
-        const updateBlob = new Blob([x.data], {type: 'image/jpg'})
-        videores.src = URL.createObjectURL(updateBlob)
+    const updateBlob = new Blob([x.data], {type: 'image/jpeg'}); // Correct MIME
+    const url = URL.createObjectURL(updateBlob);
+    videores.src = url;
+
+    // Free the previous object URL to avoid memory leaks
+    if (videores._prevUrl) {
+        URL.revokeObjectURL(videores._prevUrl);
     }
+    videores._prevUrl = url;
+}
 
 </script>
